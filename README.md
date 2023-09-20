@@ -1,6 +1,6 @@
 # HyperFuck 语言
 
-![](https://img.shields.io/badge/Python-3.8-blue) ![](https://img.shields.io/badge/Esoteric-Language-lightgrey) ![](https://img.shields.io/badge/Windows-Vista%20%2B-orange)
+![](https://img.shields.io/badge/Python-3.8-blue) ![](https://img.shields.io/badge/Esoteric-Language-lightgrey) ![](https://img.shields.io/badge/Windows-7%20%2B-orange)
 
 **预览：简单的阶乘**  
 
