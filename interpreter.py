@@ -1,4 +1,5 @@
 import sys
+import os
 import tools
 import msvcrt
 
@@ -101,7 +102,7 @@ class Interpreter:
             current_type = UNOP
         elif char in "+-~<>=&|":
             current_type = BINOP
-        elif char in "\\0":
+        elif char in "\\0_":
             current_type = CMD
         elif char in "{}()":
             current_type = STMT
@@ -415,6 +416,10 @@ class Interpreter:
                     continue
                 if char == "0":
                     sys.exit(0)
+                if char == "_":
+                    self.eat()
+                    os.system("cls")
+                    continue
             
             # 没有任何一个匹配
             self.syntax_error()

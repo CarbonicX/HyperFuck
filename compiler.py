@@ -19,7 +19,7 @@ class Compiler:
 
         self.codes += "\0"
         self.position = -1
-        self.head_code = """import msvcrt, sys
+        self.head_code = """import msvcrt, sys, os
 stack = []
 q, w, e, r, t, y, u, i, res = 0, 0, 0, 0, 0, 0, 0, 0, 0
 """
@@ -92,7 +92,7 @@ q, w, e, r, t, y, u, i, res = 0, 0, 0, 0, 0, 0, 0, 0, 0
             current_type = UNOP
         elif char in "+-~<>=&|":
             current_type = BINOP
-        elif char in "\\0`;":
+        elif char in "\\0`;_":
             current_type = CMD
         elif char in "{}()":
             current_type = STMT
@@ -376,6 +376,10 @@ q, w, e, r, t, y, u, i, res = 0, 0, 0, 0, 0, 0, 0, 0, 0
                     self.eat()
                     self.add_code(f"if {self.selected_register} != 0:")
                     self.add_code(f"    continue")
+                    continue
+                if char == "_":
+                    self.eat()
+                    self.add_code("os.system(\"cls\")")
                     continue
             
             # 没有任何一个匹配
