@@ -75,7 +75,7 @@ def get_references(ref_lines: list) -> dict:
 
 # 交互式
 def run_interactive(ref_dict: dict) -> None:
-    print("HyperFuck 1.2 交互式解释器 交互式工具")
+    print("HyperFuck 2.0 交互式解释器 交互式工具")
     print("单独输入数字 1 来查看寄存器与列使用。")
     
     code = get_input_code()
@@ -83,7 +83,7 @@ def run_interactive(ref_dict: dict) -> None:
     if ref_dict != None:
         interpreter.ref_functions = ref_dict
     if code == "1\n\0":
-        print(diagram(interpreter.registers, interpreter.stack.to_list()))
+        print(diagram(interpreter.registers, interpreter.list.to_list()))
     else:
         interpret_code(interpreter)
     print()
@@ -94,7 +94,7 @@ def run_interactive(ref_dict: dict) -> None:
             if "',`/" in code:
                 print("警告：交互式解释器不能使用跳跃指令。")
             if code == "1\n\0":
-                print(diagram(interpreter.registers, interpreter.stack.to_list()))
+                print(diagram(interpreter.registers, interpreter.list.to_list()))
                 continue
                 
         except EOFError:
@@ -117,13 +117,13 @@ def interpret_code(interpreter: Interpreter) -> None:
     except EOFError:
         pass
     except HFSyntaxError as e:
-        print("\nHyperFuck 1.2 解释器 语法错误")
+        print("\nHyperFuck 2.0 解释器 语法错误")
         print(f"    位于：{e.error_exp}")
-        print(diagram(interpreter.registers, interpreter.stack.to_list()))
+        print(diagram(interpreter.registers, interpreter.list.to_list()))
     except RuntimeException as e:
-        print(f"\nHyperFuck VM 1.2 错误：{e.error_type}")
+        print(f"\nHyperFuck VM 2.0 错误：{e.error_type}")
         print(f"    位于：{e.error_exp}\n")
-        print(diagram(interpreter.registers, interpreter.stack.to_list()))
+        print(diagram(interpreter.registers, interpreter.list.to_list()))
         print(f"\n当前寄存器：{interpreter.selected_register.upper()}   ", end = "")
         print(f"当前跳跃字符：{interpreter.selected_jump.upper()}   ", end = "")
         print(f"当前引用字符：{interpreter.selected_ref.upper()}")

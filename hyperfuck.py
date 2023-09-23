@@ -80,15 +80,15 @@ if __name__ == "__main__":
     except HFSyntaxError as e:
         print("\nHyperFuck 2.0 解释器 语法错误")
         print(f"    位于：{e.error_exp}")
-        print(tools.diagram(interpreter.registers, interpreter.stack.to_list()))
+        print(tools.diagram(interpreter.registers, interpreter.list.to_list()))
     except RuntimeException as e:
         print(f"\nHyperFuck VM 2.0 错误：{e.error_type}")
         print(f"    位于：{e.error_exp}\n")
-        print(tools.diagram(interpreter.registers, interpreter.stack.to_list()))
+        print(tools.diagram(interpreter.registers, interpreter.list.to_list()))
         print(f"\n当前寄存器：{interpreter.selected_register.upper()}   ", end = "")
         print(f"当前跳跃字符：{interpreter.selected_jump.upper()}   ", end = "")
         print(f"当前引用字符：{interpreter.selected_ref.upper()}")
         
     
-    #print(tools.diagram(interpreter.registers, interpreter.stack.to_list()))
+    #print(tools.diagram(interpreter.registers, interpreter.list.to_list()))
     
