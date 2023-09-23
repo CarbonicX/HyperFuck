@@ -13,7 +13,7 @@ Z'{Q_[W~QE_[vE(Q+WEv)?~Q}
 I%T^^=I?]\Tv=IT_[|?(I:\0)I<R?(0)I=R?(R^:\0)
 
 # 阶乘 （I=9 U=I-1用于遍历递减 Y=U-1用于条件判断）
-U~IUvY~UYvY(U]\I]\z/I~?UvYv)
+U~IUvY~UYvY(U]\I]\Z/I~?UvYv)
 
 # 输出结果
 ?:\
