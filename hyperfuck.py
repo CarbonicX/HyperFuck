@@ -13,7 +13,6 @@ usage = """HyperFuck Release 1.2 解释器
 选项包括：
     -r | --reference <包含索引文件>
     -i | --interactive 交互式
-    -c | -compile 编译到可执行文件
 """
     
 if __name__ == "__main__":
@@ -53,7 +52,7 @@ if __name__ == "__main__":
             lines = f.readlines()
     except:
         print(f"错误：无法打开主程序文件：{code_file}")
-        print("HyperFuck只支持GBK编码")
+        print("HyperFuck 只支持 GBK 编码")
         sys.exit(1)
     
     # 编译

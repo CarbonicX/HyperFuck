@@ -20,6 +20,37 @@ class RuntimeException(Exception):
     def __init__(self) -> None:
         super().__init__()
         
+# 列
+class List():
+    def __init__(self, error_func) -> None:
+        self.__stack = []
+        self.__index = -1
+        self.__error_func = error_func
+    
+    def to_list(self) -> list:
+        return self.__stack
+    
+    def write(self, data) -> None:
+        try:
+            self.__stack[self.__index] = data
+        except IndexError:
+            self.__error_func("栈指针异常")
+    
+    def read(self):
+        try:
+            data = self.__stack[self.__index]
+        except IndexError:
+            self.__error_func("栈指针异常")
+        return data
+
+    def go(self):
+        self.__index += 1
+        while self.__index >= len(self.__stack):
+            self.__stack.append(0)
+
+    def back(self):
+        self.__index -= 1
+
 # 栈
 class Stack():
     def __init__(self, error_func) -> None:
@@ -71,7 +102,7 @@ class Interpreter:
             "o": None, "p": None, "h": None, "j": None, "k": None, "l": None, 
         }
         # 栈
-        self.stack = Stack(self.runtime_error)
+        self.list = List(self.runtime_error)
         # 选中的寄存器
         self.selected_register = ""
         # 选中的跳跃字符
@@ -98,11 +129,11 @@ class Interpreter:
             current_type = JMP
         elif char in "ophjkl":
             current_type = REF
-        elif char in "^v]['.@!$:/*%`;":
+        elif char in "^v'.@!$:/*%`;\\_":
             current_type = UNOP
         elif char in "+-~<>=&|":
             current_type = BINOP
-        elif char in "\\0_":
+        elif char in "08[]":
             current_type = CMD
         elif char in "{}()":
             current_type = STMT
@@ -234,19 +265,6 @@ class Interpreter:
                         self.runtime_error("用户输入错误")
                     self.registers[self.selected_register] = data
                     continue
-                # 入栈
-                if char == "]":
-                    self.check_selected(REG)
-                    self.eat()
-                    self.stack.push(self.registers[self.selected_register])
-                    continue
-                # 出栈
-                if char == "[":
-                    self.check_selected(REG)
-                    self.eat()
-                    data = self.stack.pop()
-                    self.registers[self.selected_register] = data
-                    continue
                 # 取反
                 if char == "!":
                     self.check_selected(REG)
@@ -275,9 +293,9 @@ class Interpreter:
                     if self.ref_functions[self.selected_ref] == None:
                         self.runtime_error("空的引用")
                     self.eat()
-                    stack_list = self.stack.to_list()
+                    stack_list = self.list.to_list()
                     self.ref_functions[self.selected_ref](self.registers, stack_list)
-                    self.stack.__stack = stack_list
+                    self.list.__stack = stack_list
                     continue
                 # 跳出
                 if char == "`":
@@ -303,6 +321,19 @@ class Interpreter:
                             self.position = self.while_stack.to_list()[-1]
                         else:
                             self.while_to_end()
+                    continue
+                # 读取
+                if char == "_":
+                    self.check_selected(REG)
+                    self.eat()
+                    data = self.list.read()
+                    self.registers[self.selected_register] = data
+                    continue
+                # 写入
+                if char == "\\":
+                    self.check_selected(REG)
+                    self.eat()
+                    self.list.write(self.registers[self.selected_register])
                     continue
                     
             # 二元运算
@@ -410,15 +441,21 @@ class Interpreter:
             
             # 命令
             if type == CMD:
-                if char == "\\":
-                    self.eat()
-                    print()
-                    continue
                 if char == "0":
                     sys.exit(0)
-                if char == "_":
+                if char == "8":
                     self.eat()
                     os.system("cls")
+                    continue
+                # 指针加1
+                if char == "]":
+                    self.eat()
+                    self.list.go();
+                    continue
+                # 指针减1
+                if char == "[":
+                    self.eat()
+                    self.list.back();
                     continue
             
             # 没有任何一个匹配

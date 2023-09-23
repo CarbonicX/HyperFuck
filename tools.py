@@ -32,7 +32,7 @@ def diagram(registers: dict, stack: list) -> str:
     stack_text = [
         "┌──────┐",
         "│      │",
-        "│  栈  │",
+        "│  列  │",
         "│      │",
         "└──────┘"
     ]
@@ -76,7 +76,7 @@ def get_references(ref_lines: list) -> dict:
 # 交互式
 def run_interactive(ref_dict: dict) -> None:
     print("HyperFuck 1.2 交互式解释器 交互式工具")
-    print("单独输入1来查看寄存器与堆栈使用。")
+    print("单独输入数字 1 来查看寄存器与列使用。")
     
     code = get_input_code()
     interpreter = Interpreter([code])
