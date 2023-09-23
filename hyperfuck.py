@@ -3,9 +3,8 @@ import os
 import shutil
 import sys
 from interpreter import *
-from compiler import *
 
-usage = """HyperFuck Release 1.2 解释器
+usage = """HyperFuck Release 2.0 解释器
 用法：
     HyperFuck (-h | --help)
     HyperFuck [options] <主程序>
@@ -79,11 +78,11 @@ if __name__ == "__main__":
     except EOFError:
         pass
     except HFSyntaxError as e:
-        print("\nHyperFuck 1.2 解释器 语法错误")
+        print("\nHyperFuck 2.0 解释器 语法错误")
         print(f"    位于：{e.error_exp}")
         print(tools.diagram(interpreter.registers, interpreter.stack.to_list()))
     except RuntimeException as e:
-        print(f"\nHyperFuck VM 1.2 错误：{e.error_type}")
+        print(f"\nHyperFuck VM 2.0 错误：{e.error_type}")
         print(f"    位于：{e.error_exp}\n")
         print(tools.diagram(interpreter.registers, interpreter.stack.to_list()))
         print(f"\n当前寄存器：{interpreter.selected_register.upper()}   ", end = "")
