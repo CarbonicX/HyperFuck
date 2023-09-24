@@ -168,7 +168,7 @@ foo bar
 C:\Users\Administrator>hyperfuck -i
 HyperFuck 2.0 交互式解释器 交互式工具
 单独输入1来查看寄存器与列使用。
->>> Q^^]+Q]
+>>> Q^^]\+Q]\
 
 >>> 1
  数据    Q=4   W=0   E=0   R=0
